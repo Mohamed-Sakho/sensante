@@ -48,4 +48,22 @@ print (" Exploration terminee !")
 print (" Prochain lab : entrainer un modele ML")
 print ( f"{ '= ' * 50}")
 
- 
+# ===== REPARTITION DES DIAGNOSTICS =====
+print ( f"\n- - - Repartition des diagnostics ---")
+diag_counts = df ["diagnostic"]. value_counts()
+for diag , count in diag_counts . items() :
+    pct = count / len (df) * 100
+print ( f" { diag :12s} : { count :3d} patients ({ pct :.1f}%) ")
+
+# ===== REPARTITION PAR REGION =====
+print ( f"\n- - - Repartition par region ( top 5) ---")
+region_counts = df ["region"]. value_counts() . head(5)
+for region , count in region_counts . items() :
+    print ( f" { region :15s} : { count :3d}patient")
+# ===== REPARTITION PAR SEXE ET DIAGNOSTIC =====
+print(f"\n--- Repartition par sexe et diagnostic ---")
+
+grouped = df.groupby(["sexe", "diagnostic"]).size()
+
+for (sexe, diag), count in grouped.items():
+    print(f" Sexe: {sexe} | Diagnostic: {diag:12s} : {count} patients")
